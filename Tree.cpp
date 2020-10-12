@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -29,7 +29,19 @@ void preOrderItr(Node *root)
         return;
     else
     {
-        /* code */
+        stack<Node *> nodeStack;
+        nodeStack.push(root);
+        Node *temp = root;
+        while (!nodeStack.empty())
+        {
+            Node *temp = nodeStack.top();
+            cout << temp->data << " ";
+            nodeStack.pop();
+            if (temp->right)
+                nodeStack.push(temp->right);
+            if (temp->left)
+                nodeStack.push(temp->left);
+        }
     }
 }
 
@@ -44,7 +56,37 @@ void postOrder(Node *root)
 
 void postOrderItr(Node *root)
 {
-    //
+    if (!root)
+        return;
+    else
+    {
+        stack<Node *> stackNode;
+        Node *temp = root;
+        while (!stackNode.empty() || temp != NULL)
+        {
+            while (temp != NULL)
+            {
+                stackNode.push(temp);
+                temp = temp->left;
+            }
+            if (stackNode.top()->right == NULL)
+            {
+                Node *temp2 = stackNode.top();
+                stackNode.pop();
+                cout << temp2->data << " ";
+                while (!stackNode.empty() && stackNode.top()->right == temp2)
+                {
+                    temp2 = stackNode.top();
+                    cout << temp2->data << " ";
+                    stackNode.pop();
+                }
+            }
+            else
+            {
+                temp = stackNode.top()->right;
+            }
+        }
+    }
 }
 
 void inOrder(Node *root)
@@ -58,7 +100,25 @@ void inOrder(Node *root)
 
 void inOrderItr(Node *root)
 {
-    //
+    if (!root)
+        return;
+    else
+    {
+        stack<Node *> stackNode;
+        Node *temp = root;
+        while (!stackNode.empty() || temp != NULL)
+        {
+            while (temp != NULL)
+            {
+                stackNode.push(temp);
+                temp = temp->left;
+            }
+            temp = stackNode.top();
+            cout << temp->data << " ";
+            stackNode.pop();
+            temp = temp->right;
+        }
+    }
 }
 
 int main()
@@ -68,4 +128,10 @@ int main()
     root->right = new Node(3);
     root->left->left = new Node(4);
     root->left->right = new Node(5);
+    cout << "preorder" << endl;
+    preOrderItr(root);
+    cout << "inorder" << endl;
+    inOrderItr(root);
+    cout << "postorder" << endl;
+    postOrderItr(root);
 }
