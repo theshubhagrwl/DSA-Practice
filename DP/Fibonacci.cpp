@@ -3,6 +3,13 @@
 
 using namespace std;
 
+int fibWithoutDP(int n)
+{
+    if (n <= 2)
+        return 1;
+    return fibWithoutDP(n - 1) + fibWithoutDP(n - 2);
+}
+
 int fib(int n, int *memo)
 {
     if (memo[n] != -1)
@@ -16,9 +23,10 @@ int fib(int n, int *memo)
 
 int main()
 {
-    int n = 6;
+    int n = 80;
     int memo[n + 1];
     for (int i = 0; i <= n; i++)
         memo[i] = -1;
-    cout << fib(n, memo);
+    cout << fib(n, memo) << endl;
+    cout << fibWithoutDP(n) << endl;
 }
