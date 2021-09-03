@@ -57,6 +57,34 @@ class BinarySearchTree {
     return found;
   }
 
+  remove(root, value) {
+    if (!root) {
+      return null;
+    }
+    if (value < root.value) {
+      root.left = this.remove(root.left, value);
+    } else if (value > root.value) {
+      root.right = this.remove(root.right, value);
+    } else {
+      if (!root.left) {
+        return root.right;
+      } else if (!root.right) {
+        return root.left;
+      } else {
+        root.value = getMin(root.right);
+        root.right = this.remove(root.right, root.value);
+      }
+    }
+    return root;
+  }
+
+  getMin(root) {
+    while (root.left) {
+      root = root.left;
+    }
+    return root.val;
+  }
+
   getRoot() {
     return this.root;
   }
@@ -95,7 +123,13 @@ console.log("status of find", bst.find(10).value);
 var root = bst.getRoot();
 console.log("In order");
 bst.inOrder(root);
-console.log("Pre order");
-bst.preOrder(root);
-console.log("Post order");
-bst.postOrder(root);
+bst.remove(root, 2);
+console.log("In order");
+bst.inOrder(root);
+bst.remove(root, 10);
+console.log("In order");
+bst.inOrder(root);
+// console.log("Pre order");
+// bst.preOrder(root);
+// console.log("Post order");
+// bst.postOrder(root);
