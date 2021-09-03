@@ -112,6 +112,22 @@ class BinarySearchTree {
       console.log(node.value);
     }
   }
+
+  bfs() {
+    var q = [];
+    q.push(this.root);
+    while (!q.length < 1) {
+      var current = q[0];
+      q.shift();
+      console.log(current.value);
+      if (current.left) {
+        q.push(current.left);
+      }
+      if (current.right) {
+        q.push(current.right);
+      }
+    }
+  }
 }
 
 var bst = new BinarySearchTree();
@@ -119,17 +135,19 @@ console.log(bst.insert(5));
 bst.insert(10);
 bst.insert(15);
 bst.insert(2);
-console.log("status of find", bst.find(10).value);
+// console.log("status of find", bst.find(10).value);
 var root = bst.getRoot();
-console.log("In order");
-bst.inOrder(root);
-bst.remove(root, 2);
-console.log("In order");
-bst.inOrder(root);
-bst.remove(root, 10);
-console.log("In order");
-bst.inOrder(root);
-// console.log("Pre order");
-// bst.preOrder(root);
+// console.log("In order");
+// bst.inOrder(root);
+// bst.remove(root, 2);
+// console.log("In order");
+// bst.inOrder(root);
+// bst.remove(root, 10);
+// console.log("In order");
+// bst.inOrder(root);
+console.log("BFS");
+bst.bfs();
+console.log("Pre order");
+bst.preOrder(root);
 // console.log("Post order");
 // bst.postOrder(root);
